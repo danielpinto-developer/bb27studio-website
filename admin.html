@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      name="viewport"
+    />
+    <title>Admin Dashboard | BB27 Studio</title>
+    <link href="assets/css/style-liberty.css" rel="stylesheet" />
+    <style>
+      /* Ensure the calendar container is responsive */
+      #calendar-container {
+        width: 100%;
+        overflow-x: auto; /* Allows horizontal scrolling if needed */
+      }
+
+      /* Adjust calendar styling for smaller screens */
+      @media screen and (max-width: 768px) {
+        #calendar {
+          width: 100%;
+          font-size: 14px; /* Reduce font size for better visibility */
+        }
+
+        /* Ensure calendar cells fit within small screens */
+        .calendar-table {
+          display: block;
+          overflow-x: auto;
+          white-space: nowrap;
+        }
+
+        /* Make sure event details inside the calendar fit properly */
+        .calendar-event {
+          font-size: 12px;
+          padding: 5px;
+          word-wrap: break-word;
+        }
+
+        /* Adjust buttons for navigation */
+        .calendar-nav-buttons {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 10px;
+        }
+
+        .calendar-nav-buttons button {
+          font-size: 14px;
+          padding: 5px 10px;
+        }
+
+        /* Make sure appointment details don't overflow */
+        .appointment-details {
+          font-size: 12px;
+          padding: 5px;
+          word-wrap: break-word;
+          white-space: normal;
+        }
+
+        /* Ensure the appointment booking form fits well */
+        #appointmentForm {
+          width: 100%;
+        }
+
+        #appointmentForm input,
+        #appointmentForm select,
+        #appointmentForm button {
+          width: 100%;
+          font-size: 14px;
+        }
+      }
+    </style>
+    <link
+      href="//fonts.googleapis.com/css?family=Oswald:300,400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="//fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- FullCalendar CSS -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- FullCalendar JavaScript (BEFORE any scripts that use it) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.11.3/main.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- Firebase Configuration -->
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyC4eMq0Y8ERerdBIzsySqtG9QnisI3CBIc",
+        authDomain: "bb27studio-loyalty-program.firebaseapp.com",
+        databaseURL:
+          "https://bb27studio-loyalty-program-default-rtdb.firebaseio.com",
+        projectId: "bb27studio-loyalty-program",
+        storageBucket: "bb27studio-loyalty-program.appspot.com",
+        messagingSenderId: "827670961717",
+        appId: "1:827670961717:web:9e7b9d33ddd047dfcc9b7c",
+        measurementId: "G-Y30PX1R10P",
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
+    </script>
+
+    <!-- FULL HEADER -->
+    <section class="w3l-banner-slider-main inner-pagehny">
+      <div class="breadcrumb-infhny">
+        <div class="top-header-content">
+          <header class="tophny-header">
+            <div class="container-fluid">
+              <div class="top-right-strip row">
+                <!--/left-->
+                <div class="top-hny-left-content col-lg-6 pl-lg-0">
+                  <h6>
+                    Upto 30% off on All styles ,
+                    <a href="ecommerce.html" target="_blank">
+                      Haz clic aquí para
+                      <span
+                        aria-hidden="true"
+                        class="fa fa-hand-o-right hand-icon"
+                      >
+                      </span>
+                      <span class="hignlaite"> Más detalles </span>
+                    </a>
+                  </h6>
+                </div>
+                <!--//left-->
+                <!--/right-->
+                <ul class="top-hnt-right-content col-lg-6">
+                  <li class="button-log usernhy">
+                    <a class="btn-open" href="#">
+                      <span aria-hidden="true" class="fa fa-user"> </span>
+                    </a>
+                  </li>
+                  <li class="transmitvcart galssescart2 cart cart box_1">
+                    <form action="#" class="last" method="post">
+                      <input name="cmd" type="hidden" value="_cart" />
+                      <input name="display" type="hidden" value="1" />
+                      <button
+                        class="top_transmitv_cart"
+                        name="submit"
+                        type="submit"
+                        value=""
+                      >
+                        Mi Carrito
+                        <span class="fa fa-shopping-cart"> </span>
+                      </button>
+                    </form>
+                  </li>
+                </ul>
+                <!--//right-->
+                <div class="overlay-login text-left">
+                  <button class="overlay-close1" type="button">
+                    <i aria-hidden="true" class="fa fa-times"> </i>
+                  </button>
+                  <div class="wrap">
+                    <h5 class="text-center mb-4">Iniciar Sesión Ahora</h5>
+                    <div class="login-bghny p-md-5 p-4 mx-auto mw-100">
+                      <!--/login-form-->
+                      <form action="#" method="post">
+                        <div class="form-group">
+                          <p class="login-texthny mb-2">Correo Electrónico</p>
+                          <input
+                            aria-describedby="emailHelp"
+                            class="form-control"
+                            id="exampleInputEmail1"
+                            placeholder=""
+                            required=""
+                            type="email"
+                          />
+                          <small class="form-text text-muted" id="emailHelp">
+                            We'll never share your email with anyone else.
+                          </small>
+                        </div>
+                        <div class="form-group">
+                          <p class="login-texthny mb-2">Contraseña</p>
+                          <input
+                            class="form-control"
+                            id="exampleInputPassword1"
+                            placeholder=""
+                            required=""
+                            type="password"
+                          />
+                        </div>
+                        <div class="form-check mb-2">
+                          <div class="userhny-check">
+                            <label class="check-remember container">
+                              <input class="form-check" type="checkbox" />
+                              <span class="checkmark"> </span>
+                              <p class="privacy-policy">Recuérdame</p>
+                            </label>
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+                        <button class="submit-login btn mb-4" type="submit">
+                          Iniciar Sesión
+                        </button>
+                      </form>
+                      <!--//login-form-->
+                    </div>
+                    <!-- -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--/nav-->
+            <nav class="navbar navbar-expand-lg navbar-light">
+              <div class="container-fluid serarc-fluid">
+                <a class="navbar-brand" href="index.html">
+                  Spry
+                  <span class="lohny"> S </span>
+                  tore
+                </a>
+                <!-- if logo is image enable this   
+                          <a class="navbar-brand" href="#index.html">
+                            <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                          </a> -->
+                <!--/search-right-->
+                <div class="search-right">
+                  <a href="#search" title="search">
+                    <span aria-hidden="true" class="fa fa-search mr-2"> </span>
+                    <span class="search-text"> Buscar aquí </span>
+                  </a>
+                  <!-- search popup -->
+                  <div class="pop-overlay" id="search">
+                    <div class="popup">
+                      <form action="#" class="search-box" method="post">
+                        <input
+                          autofocus=""
+                          name="search"
+                          placeholder="Keyword"
+                          required="required"
+                          type="search"
+                        />
+                        <button class="btn" type="submit">Buscar</button>
+                      </form>
+                    </div>
+                    <a class="close" href="#"> × </a>
+                  </div>
+                  <!-- /search popup -->
+                </div>
+                <!--//search-right-->
+                <button
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                  class="navbar-toggler"
+                  data-target="#navbarSupportedContent"
+                  data-toggle="collapse"
+                  type="button"
+                >
+                  <span class="navbar-toggler-icon fa fa-bars"> </span>
+                </button>
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="index.html">Inicio</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        class="nav-link dropdown-toggle"
+                        data-toggle="dropdown"
+                        href="#"
+                        id="navbarDropdownServicios"
+                        role="button"
+                      >
+                        Servicios
+                      </a>
+                      <div
+                        aria-labelledby="navbarDropdownServicios"
+                        class="dropdown-menu"
+                      >
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="cabello.html"
+                        >
+                          Cabello
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="cejas.html"
+                        >
+                          Cejas
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="encimas.html"
+                        >
+                          Encimas
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="labiosyrostro.html"
+                        >
+                          Labios y Rostro
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="pestanas.html"
+                        >
+                          Pestañas
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="unas.html"
+                        >
+                          Uñas
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        class="nav-link dropdown-toggle"
+                        data-toggle="dropdown"
+                        href="#"
+                        id="navbarDropdownCatalogo"
+                        role="button"
+                      >
+                        Catálogo
+                      </a>
+                      <div
+                        aria-labelledby="navbarDropdownCatalogo"
+                        class="dropdown-menu"
+                      >
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="bb27.html"
+                        >
+                          BB27
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="orkline.html"
+                        >
+                          Orkline
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                        <a
+                          class="dropdown-item d-flex justify-content-between"
+                          href="shelo-nabel.html"
+                        >
+                          Shelo Nabel
+                          <span class="ml-auto" style="padding-left: 20px"
+                            >►</span
+                          >
+                        </a>
+                      </div>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="about.html">Nosotros</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        class="nav-link dropdown-toggle"
+                        data-toggle="dropdown"
+                        href="#"
+                        id="navbarDropdownBlog"
+                        role="button"
+                      >
+                        Blog
+                      </a>
+                      <div
+                        aria-labelledby="navbarDropdownBlog"
+                        class="dropdown-menu"
+                      >
+                        <a class="dropdown-item" href="blog.html"
+                          >English<span
+                            class="ml-auto"
+                            style="padding-left: 2px"
+                            >►</span
+                          ></a
+                        >
+                        <a class="dropdown-item" href="blog-single.html"
+                          >Español<span
+                            class="ml-auto"
+                            style="padding-left: 20px"
+                            >►</span
+                          ></a
+                        >
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </nav>
+            <!--//nav-->
+          </header>
+        </div>
+      </div>
+    </section>
+
+    <div class="container mt-5 text-center">
+      <h2 id="calendarTitle">Calendario de Citas - Marzo</h2>
+      <button id="prevMonth" class="btn btn-primary">⇦</button>
+      <button id="nextMonth" class="btn btn-primary">⇨</button>
+      <table class="table table-bordered mt-3">
+        <thead>
+          <tr>
+            <th>Dom</th>
+            <th>Lun</th>
+            <th>Mar</th>
+            <th>Mié</th>
+            <th>Jue</th>
+            <th>Vie</th>
+            <th>Sáb</th>
+          </tr>
+        </thead>
+        <tbody id="calendarBody"></tbody>
+      </table>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container py-5">
+      <!-- Formulario para Agendar Cita -->
+      <div class="card mb-4">
+        <div class="card-header">Crear Nueva Cita</div>
+        <div class="card-body">
+          <form id="appointmentForm">
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="clientName">Nombre del Cliente</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="clientName"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="appointmentTechnician">Técnica</label>
+                <select
+                  class="form-control"
+                  id="appointmentTechnician"
+                  required
+                >
+                  <option value="">Selecciona Técnica</option>
+                  <option value="Lucy">Lucy</option>
+                  <option value="Terresita">Terresita</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="appointmentDate">Fecha</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="appointmentDate"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="appointmentTime">Hora</label>
+                <input
+                  type="time"
+                  class="form-control"
+                  id="appointmentTime"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="appointmentService">Servicio</label>
+                <select class="form-control" id="appointmentService" required>
+                  <option value="">Selecciona un Servicio</option>
+                  <option value="Pestañas">Pestañas</option>
+                  <option value="Cejas">Cejas</option>
+                  <option value="Uñas">Uñas</option>
+                  <option value="Cabello">Cabello</option>
+                  <option value="Labios y Rostro">Labios y Rostro</option>
+                  <option value="Enzimas">Enzimas</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <label for="appointmentDuration">Duración (mins)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="appointmentDuration"
+                  placeholder="Ej. 90"
+                  required
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Agendar Cita</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tabla de Citas -->
+      <div class="card mb-4">
+        <div class="card-header">Citas Programadas</div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Cliente</th>
+                <th>Técnica</th>
+                <!-- NEW COLUMN -->
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Servicio</th>
+                <th>Duración (mins)</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="appointmentsTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <h1 class="text-center mb-4">Gestión de Servicios</h1>
+
+      <!-- Formulario para agregar servicio -->
+      <div class="card mb-4">
+        <div class="card-header">Agregar Nuevo Servicio</div>
+        <div class="card-body">
+          <form id="serviceForm">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="serviceName">Nombre del Servicio</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="serviceName"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="servicePrice">Precio (MXN)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="servicePrice"
+                  required
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="serviceDuration">Duración (mins)</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="serviceDuration"
+                  placeholder="Ej. 60"
+                  required
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+              Agregar Servicio
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tabla de Servicios -->
+      <div class="card mb-4">
+        <div class="card-header">Servicios Disponibles</div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Precio (MXN)</th>
+                <th>Duración (mins)</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="servicesTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Function to load appointments from Firebase
+      function loadAppointments() {
+        const table = document.getElementById("appointmentsTable");
+        table.innerHTML = "";
+
+        db.ref("appointments").once("value", (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            const appointment = childSnapshot.val();
+            const rowId = `appointment-${childSnapshot.key}`;
+
+            const row = `<tr id="${rowId}">
+          <td>${appointment.clientName}</td>
+          <td>${appointment.technician}</td>
+          <td>${formatDate(appointment.appointmentDate)}</td>
+          <td>${appointment.appointmentTime}</td>
+          <td>${appointment.service}</td>
+          <td>${appointment.duration} mins</td>
+          <td>
+            <button class="btn btn-warning btn-sm" onclick="editAppointment('${
+              childSnapshot.key
+            }')">Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteAppointment('${
+              childSnapshot.key
+            }')">Eliminar</button>
+          </td>
+        </tr>`;
+            table.innerHTML += row;
+          });
+        });
+      }
+
+      function formatDate(dateString) {
+        const [year, month, day] = dateString.split("-");
+        return `${day}-${month}-${year}`;
+      }
+
+      // Function to load services from Firebase
+      function loadServices() {
+        const table = document.getElementById("servicesTable");
+        table.innerHTML = "";
+
+        db.ref("services").once("value", (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            const service = childSnapshot.val();
+            const rowId = `service-${childSnapshot.key}`;
+
+            const row = `<tr id="${rowId}">
+          <td>${service.name}</td>
+          <td>$${service.price}</td>
+          <td>${service.duration} mins</td>
+          <td>
+            <button class="btn btn-warning btn-sm" onclick="editService('${childSnapshot.key}')">Editar</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteService('${childSnapshot.key}')">Eliminar</button>
+          </td>
+        </tr>`;
+            table.innerHTML += row;
+          });
+        });
+      }
+
+      function editAppointment(id) {
+        console.log(`Editing appointment with ID: ${id}`); // Debugging log
+
+        const row = document.getElementById(`appointment-${id}`);
+        if (!row) {
+          console.error(`Row not found for ID: ${id}`);
+          return;
+        }
+
+        const cells = row.getElementsByTagName("td");
+
+        if (cells.length < 7) {
+          console.error(`Not enough cells found in row for ID: ${id}`);
+          return;
+        }
+
+        // Extract existing values
+        const clientName = cells[0].innerText.trim();
+        const technician = cells[1].innerText.trim();
+        const originalDate = cells[2].innerText.trim();
+        const formattedDate = formatDateForInput(originalDate); // Ensure proper date format
+        const time = cells[3].innerText.trim();
+        const service = cells[4].innerText.trim();
+        const duration = cells[5].innerText.replace(" mins", "").trim();
+
+        console.log(
+          `Existing Data: Name=${clientName}, Tech=${technician}, Date=${formattedDate}, Time=${time}, Service=${service}, Duration=${duration}`
+        );
+
+        // Replace row content with editable fields
+        cells[0].innerHTML = `<input type="text" class="form-control" id="edit-clientName-${id}" value="${clientName}">`;
+        cells[1].innerHTML = `<select class="form-control" id="edit-technician-${id}">
+                            <option value="Lucy" ${
+                              technician === "Lucy" ? "selected" : ""
+                            }>Lucy</option>
+                            <option value="Terresita" ${
+                              technician === "Terresita" ? "selected" : ""
+                            }>Terresita</option>
+                          </select>`;
+        cells[2].innerHTML = `<input type="date" class="form-control" id="edit-date-${id}" value="${formattedDate}">`;
+        cells[3].innerHTML = `<input type="time" class="form-control" id="edit-time-${id}" value="${time}">`;
+        cells[4].innerHTML = `<input type="text" class="form-control" id="edit-service-${id}" value="${service}">`;
+        cells[5].innerHTML = `<input type="number" class="form-control" id="edit-duration-${id}" value="${duration}">`;
+
+        // Replace action buttons
+        cells[6].innerHTML = `
+        <button class="btn btn-success btn-sm" onclick="saveAppointment('${id}')">Guardar</button>
+        <button class="btn btn-secondary btn-sm" onclick="cancelEditAppointment('${id}')">Cancelar</button>
+    `;
+      }
+
+      function saveService(id) {
+        const updatedData = {
+          name: document.getElementById(`edit-name-${id}`).value,
+          price: document.getElementById(`edit-price-${id}`).value,
+          duration: document.getElementById(`edit-duration-${id}`).value,
+        };
+
+        db.ref("services/" + id)
+          .update(updatedData)
+          .then(() => {
+            alert("Servicio actualizado.");
+            loadServices();
+          })
+          .catch((error) => {
+            console.error("Error al actualizar servicio:", error);
+          });
+      }
+
+      function cancelEditService(id, name, price, duration) {
+        const row = document.getElementById(`service-${id}`);
+        row.innerHTML = `
+      <td>${name}</td>
+      <td>$${price}</td>
+      <td>${duration} mins</td>
+      <td>
+        <button class="btn btn-warning btn-sm" onclick="editService('${id}')">Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteService('${id}')">Eliminar</button>
+      </td>
+    `;
+      }
+
+      function deleteService(id) {
+        if (confirm("¿Estás seguro de que quieres eliminar este servicio?")) {
+          db.ref("services/" + id)
+            .remove()
+            .then(() => {
+              alert("Servicio eliminado.");
+              loadServices();
+            })
+            .catch((error) => {
+              console.error("Error al eliminar servicio:", error);
+            });
+        }
+      }
+
+      function editService(id) {
+        const row = document.getElementById(`service-${id}`);
+        const cells = row.getElementsByTagName("td");
+
+        const name = cells[0].innerText;
+        const price = cells[1].innerText.replace("$", "");
+        const duration = cells[2].innerText.replace(" mins", "");
+
+        cells[0].innerHTML = `<input type="text" class="form-control" id="edit-name-${id}" value="${name}">`;
+        cells[1].innerHTML = `<input type="number" class="form-control" id="edit-price-${id}" value="${price}">`;
+        cells[2].innerHTML = `<input type="number" class="form-control" id="edit-duration-${id}" value="${duration}">`;
+
+        cells[3].innerHTML = `
+      <button class="btn btn-success btn-sm" onclick="saveService('${id}')">Guardar</button>
+      <button class="btn btn-secondary btn-sm" onclick="cancelEditService('${id}', '${name}', '${price}', '${duration}')">Cancelar</button>
+    `;
+      }
+
+      // Function to add an appointment
+      document
+        .getElementById("appointmentForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const clientName = document.getElementById("clientName").value;
+          const technician = document.getElementById(
+            "appointmentTechnician"
+          ).value;
+          const appointmentDate =
+            document.getElementById("appointmentDate").value;
+          const appointmentTime =
+            document.getElementById("appointmentTime").value;
+          const service = document.getElementById("appointmentService").value;
+          const duration = document.getElementById("appointmentDuration").value;
+
+          const newAppointmentRef = db.ref("appointments").push();
+          newAppointmentRef
+            .set({
+              clientName,
+              technician, // ADDED
+              appointmentDate,
+              appointmentTime,
+              service,
+              duration,
+            })
+            .then(() => {
+              alert("Cita agendada con éxito.");
+              document.getElementById("appointmentForm").reset();
+              loadAppointments();
+            })
+            .catch((error) => {
+              console.error("Error al agendar cita:", error);
+            });
+        });
+
+      // Function to add a service
+      document
+        .getElementById("serviceForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const name = document.getElementById("serviceName").value;
+          const price = document.getElementById("servicePrice").value;
+          const duration = document.getElementById("serviceDuration").value;
+
+          const newServiceRef = db.ref("services").push();
+          newServiceRef
+            .set({ name, price, duration })
+            .then(() => {
+              alert("Servicio agregado con éxito.");
+              document.getElementById("serviceForm").reset();
+              loadServices(); // Refresh the table immediately
+            })
+            .catch((error) => {
+              console.error("Error al agregar servicio:", error);
+            });
+        });
+
+      function editAppointment(id) {
+        const row = document.getElementById(`appointment-${id}`);
+        const cells = row.getElementsByTagName("td");
+
+        if (!row || cells.length < 7) {
+          console.error(`Row not found for ID: ${id}`);
+          return;
+        }
+
+        // Extract existing values
+        const clientName = cells[0].innerText.trim();
+        const technician = cells[1].innerText.trim();
+        const originalDate = cells[2].innerText.trim();
+        const formattedDate = formatDate(originalDate); // Convert to YYYY-MM-DD for input fields
+        const time = cells[3].innerText.trim();
+        const service = cells[4].innerText.trim();
+        const duration = cells[5].innerText.replace(" mins", "").trim();
+
+        // Replace row content with editable fields
+        cells[0].innerHTML = `<input type="text" class="form-control" id="edit-clientName-${id}" value="${clientName}">`;
+        cells[1].innerHTML = `<select class="form-control" id="edit-technician-${id}">
+                            <option value="Lucy" ${
+                              technician === "Lucy" ? "selected" : ""
+                            }>Lucy</option>
+                            <option value="Terresita" ${
+                              technician === "Terresita" ? "selected" : ""
+                            }>Terresita</option>
+                          </select>`;
+        cells[2].innerHTML = `<input type="date" class="form-control" id="edit-date-${id}" value="${formattedDate}">`;
+        cells[3].innerHTML = `<input type="time" class="form-control" id="edit-time-${id}" value="${time}">`;
+        cells[4].innerHTML = `<input type="text" class="form-control" id="edit-service-${id}" value="${service}">`;
+        cells[5].innerHTML = `<input type="number" class="form-control" id="edit-duration-${id}" value="${duration}">`;
+
+        // Replace action buttons
+        cells[6].innerHTML = `
+        <button class="btn btn-success btn-sm" onclick="saveAppointment('${id}')">Guardar</button>
+    `;
+      }
+
+      function saveAppointment(id) {
+        const clientName = document.getElementById(
+          `edit-clientName-${id}`
+        ).value;
+        const technician = document.getElementById(
+          `edit-technician-${id}`
+        ).value;
+        const appointmentDate = document.getElementById(
+          `edit-date-${id}`
+        ).value;
+        const appointmentTime = document.getElementById(
+          `edit-time-${id}`
+        ).value;
+        const service = document.getElementById(`edit-service-${id}`).value;
+        const duration = document.getElementById(`edit-duration-${id}`).value;
+
+        db.ref("appointments/" + id)
+          .update({
+            clientName,
+            technician,
+            appointmentDate,
+            appointmentTime,
+            service,
+            duration,
+          })
+          .then(() => {
+            alert("Cita actualizada con éxito.");
+            loadAppointments();
+          })
+          .catch((error) => {
+            console.error("Error al actualizar cita:", error);
+          });
+      }
+
+      function cancelEditAppointment(
+        id,
+        clientName,
+        technician,
+        date,
+        time,
+        service,
+        duration
+      ) {
+        const row = document.getElementById(`appointment-${id}`);
+        const cells = row.getElementsByTagName("td");
+
+        // Restore the original values
+        cells[0].innerText = clientName;
+        cells[1].innerText = technician;
+        cells[2].innerText = formatDate(date);
+        cells[2].setAttribute("data-original-date", date); // Keep original YYYY-MM-DD format
+        cells[3].innerText = time;
+        cells[3].setAttribute("data-original-time", time); // Keep original time
+        cells[4].innerText = service;
+        cells[5].innerText = `${duration} mins`;
+
+        // Restore action buttons
+        cells[6].innerHTML = `
+        <button class="btn btn-warning btn-sm" onclick="editAppointment('${id}')">Editar</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteAppointment('${id}')">Eliminar</button>
+    `;
+      }
+
+      // Function to delete an appointment
+      function deleteAppointment(id) {
+        if (confirm("¿Estás seguro de que quieres eliminar esta cita?")) {
+          db.ref("appointments/" + id)
+            .remove()
+            .then(() => {
+              alert("Cita eliminada.");
+              loadAppointments();
+            })
+            .catch((error) => {
+              console.error("Error al eliminar cita:", error);
+            });
+        }
+      }
+
+      // Ensure data loads on page refresh
+      window.onload = () => {
+        loadAppointments();
+        loadServices();
+      };
+    </script>
+
+    <!-- FULL FOOTER -->
+    <section class="w3l-footer-22">
+      <!-- footer-22 -->
+      <div class="footer-hny py-5">
+        <div class="container py-lg-5">
+          <div class="text-txt row">
+            <div class="left-side col-lg-4">
+              <h3>
+                <a class="logo-footer" href="index.html">
+                  Spry
+                  <span class="lohny"> S </span>
+                  tore
+                </a>
+              </h3>
+              <!-- if logo is image enable this   
+                                       <a class="navbar-brand" href="#index.html">
+                                           <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                                       </a> -->
+              <p>
+                Lorem ipsum dolor sit amet,Ea consequuntur illum facere aperiam
+                sequi optio consectetur.Vivamus a ligula quam. Ut blandit eu leo
+                non suscipit.
+              </p>
+              <ul class="social-footerhny mt-lg-5 mt-4">
+                <li>
+                  <a class="facebook" href="#">
+                    <span aria-hidden="true" class="fa fa-facebook"> </span>
+                  </a>
+                </li>
+                <li>
+                  <a class="twitter" href="#">
+                    <span aria-hidden="true" class="fa fa-twitter"> </span>
+                  </a>
+                </li>
+                <li>
+                  <a class="google" href="#">
+                    <span aria-hidden="true" class="fa fa-google-plus"> </span>
+                  </a>
+                </li>
+                <li>
+                  <a class="instagram" href="#">
+                    <span aria-hidden="true" class="fa fa-instagram"> </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div class="right-side col-lg-8 pl-lg-5">
+              <h4>
+                Women's Day Special Offer All Branded Sandals are Flat 50%
+                Discount
+              </h4>
+              <div class="sub-columns">
+                <div class="sub-one-left">
+                  <h6>Enlaces Útiles</h6>
+                  <div class="footer-hny-ul">
+                    <ul>
+                      <li>
+                        <a href="index.html"> Inicio </a>
+                      </li>
+                      <li>
+                        <a href="about.html"> Acerca de </a>
+                      </li>
+                      <li>
+                        <a href="blog.html"> Blog </a>
+                      </li>
+                      <li>
+                        <a href="contact.html"> Contacto </a>
+                      </li>
+                    </ul>
+                    <ul>
+                      <li>
+                        <a href="#"> Carreras </a>
+                      </li>
+                      <li>
+                        <a href="#"> Política de Privacidad </a>
+                      </li>
+                      <li>
+                        <a href="#"> Términos y Condiciones </a>
+                      </li>
+                      <li>
+                        <a href="contact.html"> Soporte </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="sub-two-right">
+                  <h6>Nuestra Tienda</h6>
+                  <p class="mb-5">
+                    49436 Broaddus Honey Court Avenue, Madisonville KY 95020,
+                    United States of America
+                  </p>
+                  <h6>We accept:</h6>
+                  <ul>
+                    <li>
+                      <a class="pay-method" href="#">
+                        <span aria-hidden="true" class="fa fa-cc-visa"> </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="pay-method" href="#">
+                        <span aria-hidden="true" class="fa fa-cc-mastercard">
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="pay-method" href="#">
+                        <span aria-hidden="true" class="fa fa-cc-paypal">
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="pay-method" href="#">
+                        <span aria-hidden="true" class="fa fa-cc-amex"> </span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="below-section row">
+            <div class="columns col-lg-6">
+              <ul class="jst-link">
+                <li>
+                  <a href="#"> Política de Privacidad </a>
+                </li>
+                <li>
+                  <a href="#"> Term of Service </a>
+                </li>
+                <li>
+                  <a href="contact.html"> Atención al Cliente </a>
+                </li>
+              </ul>
+            </div>
+            <div class="columns col-lg-6 text-lg-right">
+              <p>© 2020 SpryStore. All rights reserved.</p>
+            </div>
+            <button id="movetop" onclick="topFunction()" title="Go to top">
+              <span class="fa fa-angle-double-up"> </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- //titels-5 -->
+      <!-- move top -->
+      <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+          scrollFunction();
+        };
+
+        function scrollFunction() {
+          if (
+            document.body.scrollTop > 20 ||
+            document.documentElement.scrollTop > 20
+          ) {
+            document.getElementById("movetop").style.display = "block";
+          } else {
+            document.getElementById("movetop").style.display = "none";
+          }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        }
+      </script>
+      <!-- /move top -->
+    </section>
+
+    <script src="assets/js/jquery-3.3.1.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        console.log("✅ Dual-Month Calendar Loaded");
+
+        const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril"];
+        let currentMonth = 2; // Start with March (index 2)
+        const currentYear = new Date().getFullYear();
+
+        function generateCalendar() {
+          let firstDay = new Date(currentYear, currentMonth, 1).getDay();
+          let daysInMonth = monthDays[currentMonth];
+
+          if (currentMonth === 1 && currentYear % 4 === 0) daysInMonth = 29; // Leap year check for February
+
+          document.getElementById(
+            "calendarTitle"
+          ).textContent = `${monthNames[currentMonth]} 2025`;
+          let calendarBody = document.getElementById("calendarBody");
+          calendarBody.innerHTML = ""; // Clear previous month
+
+          let date = 1;
+          for (let i = 0; i < 6; i++) {
+            let row = document.createElement("tr");
+            for (let j = 0; j < 7; j++) {
+              let cell = document.createElement("td");
+              if (i === 0 && j < firstDay) {
+                cell.textContent = "";
+              } else if (date > daysInMonth) {
+                break;
+              } else {
+                cell.textContent = date;
+                cell.setAttribute(
+                  "data-date",
+                  `${currentYear}-${(currentMonth + 1)
+                    .toString()
+                    .padStart(2, "0")}-${date.toString().padStart(2, "0")}`
+                );
+                cell.classList.add("calendar-day");
+                date++;
+              }
+              row.appendChild(cell);
+            }
+            calendarBody.appendChild(row);
+          }
+
+          // Highlight booked appointments from Firebase
+          db.ref("appointments").once("value", function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+              let appointment = childSnapshot.val();
+              let appointmentDate = appointment.appointmentDate;
+              let appointmentCell = document.querySelector(
+                `td[data-date="${appointmentDate}"]`
+              );
+              if (appointmentCell) {
+                appointmentCell.style.backgroundColor = "#ffcc00";
+                appointmentCell.innerHTML += `<br><small>${appointment.clientName} - ${appointment.service}</small>`;
+              }
+            });
+          });
+        }
+
+        // Button actions to switch months
+        document
+          .getElementById("prevMonth")
+          .addEventListener("click", function () {
+            if (currentMonth > 2) {
+              currentMonth = 2; // Switch to March
+              generateCalendar();
+            }
+          });
+
+        document
+          .getElementById("nextMonth")
+          .addEventListener("click", function () {
+            if (currentMonth < 3) {
+              currentMonth = 3; // Switch to April
+              generateCalendar();
+            }
+          });
+
+        generateCalendar(); // Load initial month (March)
+      });
+    </script>
+  </body>
+</html>
